@@ -1,0 +1,29 @@
+﻿@model EczaneMesaj.Models.Tbl_User
+@{
+    ViewBag.Title = "Add";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="m-0 text-dark">KULLANICI EKLEME SAYFASI</h2><hr />
+@using (Html.BeginForm("Add", "Person", FormMethod.Post))
+    {
+        <label>KULLANICI ADI</label>
+        @Html.TextBoxFor(x => x.UserName, new { @class = "form-control", @required = "", @maxlength = 20, placeholder = "Kullanıcı Adı Yazınız.." })
+        @Html.ValidationMessageFor(x => x.UserName, "", new { @class = "text-danger" })
+        <br />
+        <label>ŞİFRESİ</label>
+        @Html.TextBoxFor(x => x.Password, new { @class = "form-control", @required = "", @maxlength = 20, @type = "password", placeholder = "****" })
+        @Html.ValidationMessageFor(x => x.Password, "", new { @class = "text-danger" })
+        <br />
+        <label>İSMİNİZ SOYİSMİNİZ</label>
+        @Html.TextBoxFor(x => x.Name, new {@class = "form-control", @required = "", @maxlength = 50, placeholder = "İsminiz Ve Soyisminiz Yazınız.." })
+        @Html.ValidationMessageFor(x => x.Name, "", new { @class = "text-danger" })
+        <br />
+        <label>RESİM LİNKİ</label>
+        @Html.TextBoxFor(x => x.Image, new { @class = "form-control",maxlength=250, placeholder = "Resim Linki Yazınız.." })
+        <br />
+        <input type="checkbox" name="Role" value="true">
+        <label for="Role"> ADMİN YETKİSİ VER</label><br>
+        <br />
+        <button type="submit" class="btn btn-outline-success">KULLANICI EKLE</button>
+    }

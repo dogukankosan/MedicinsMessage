@@ -1,0 +1,58 @@
+﻿@using EczaneMesaj.Hash
+@model List<EczaneMesaj.Models.Tbl_User>
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    string btnclass = string.Empty, passivecontrol = string.Empty;
+}
+<h2 class="m-0 text-dark">KULLANICILAR LİSTESİ</h2>
+<hr />
+<table id="tbl1" class="table table-hover">
+    <thead>
+        <tr>
+            <th>KULLANICI USERNAME</th>
+            <th>ŞİFRESİ</th>
+            <th>İSİM SOYİSİM</th>
+            <th>RESİM</th>
+            <th>DURUM</th>
+            <th>GÜNCELLE</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.UserName</td>
+                @{
+                    item.Password = Encryption.Desc(item.Password);
+                }
+                <td>@item.Password</td>
+                <td>@item.Name</td>
+                <td><img width="70" height="70" src="@item.Image" /></td>
+                @{
+                    btnclass = @item.Status == true ? "btn btn-success" : "btn btn-danger";
+                    passivecontrol = @item.Status == true ? "AKTİF" : "PASİF";
+                }
+                <td>
+                    @Html.ActionLink(@passivecontrol, "StatusChanged", "Person", new { id = item.ID, status = item.Status }, new { @class = @btnclass, @onclick = "return confirm ('KİŞİNİN DURUMU DEĞİŞTİRİLECEKTİR EMİN MİSİNİZ ??')" })
+                </td>
+                <td><a href="~/Person/Update/@item.ID" class="btn btn-info">GÜNCELLE</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+<br />
+<a href="~/Person/Add" class="btn btn-outline-warning">YENİ KULLANICI EKLE</a>
+<br />
+<br />
+<script>
+    $('#tbl1').DataTable(
+        {
+            "language": {
+                "url": "https://cdn.datatables.net/plug-ins/1.10.20/i18n/Turkish.json"
+            }
+        }
+    );
+</script>

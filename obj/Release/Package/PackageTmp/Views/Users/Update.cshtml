@@ -1,0 +1,34 @@
+﻿@model EczaneMesaj.Models.Tbl_User
+@{
+    ViewBag.Title = "Update";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2 style="margin-left: 50px" class="m-0 text-dark">PROFİLİMİ GÜNCELLEME SAYFASI</h2>
+<hr />
+@using (Html.BeginForm("Update", "Users", FormMethod.Post))
+{
+    @Html.HiddenFor(x => x.ID)
+    @Html.HiddenFor(x => x.Status)
+    @Html.HiddenFor(x => x.Role)
+    <label>KULLANICI ADINIZ</label>
+    @Html.TextBoxFor(x => x.UserName, new { @class = "form-control", @MaxLength = 20, @placeholder = "Kullanıcı Adınızı Giriniz.." })
+    @Html.ValidationMessageFor(x => x.UserName, "", new { @class = "text-danger" })
+    <br />
+    <br />
+    <label>ADINIZ VE SOYADINIZ</label>
+    @Html.TextBoxFor(x => x.Name, new { @class = "form-control", @MaxLength = 50, @placeholder = "Adınızı Ve Soyadınızı Giriniz.." })
+    @Html.ValidationMessageFor(x => x.Name, "", new { @class = "text-danger" })
+    <br />
+    <br />
+    <label>ŞİFRENİZ</label>
+    @Html.TextBoxFor(x => x.Password, new { @class = "form-control", @MaxLength = 20, @type = "password", @placeholder = "Şifrenizi Giriniz.." })
+    @Html.ValidationMessageFor(x => x.Password, "", new { @class = "text-danger" })
+    <br />
+    <br />
+    <label>RESMİNİZ (LİNK)</label>
+    @Html.TextBoxFor(x => x.Image, new { @class = "form-control", @MaxLength = 250, @placeholder = "Resiminizi (Link) Giriniz.." })
+    @Html.ValidationMessageFor(x => x.Image, "", new { @class = "text-danger" })
+    <br />
+    <br />
+    <button class="btn btn-outline-success" type="submit">PROFİLİMİ GÜNCELLE</button>
+}

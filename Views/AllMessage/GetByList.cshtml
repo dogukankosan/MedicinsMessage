@@ -1,0 +1,35 @@
+﻿@model EczaneMesaj.Models.Tbl_Message
+@{
+    ViewBag.Title = "GetByList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-9">
+            <div class="card card-primary card-outline">
+                <div class="card-header">
+                    <h3 class="card-title">Mesaj İçeriği</h3>
+                </div>
+                <div class="card-body p-0">
+                    <div class="mailbox-read-info">
+                        <h6>
+                            Kim Aldı Mesajı:<a href="#"> @Model.Tbl_User1.Name</a>
+                            <img height="50" width="50" src="@Model.Tbl_User1.Image" />
+                            <br /> <br />
+                            Kimden Geldi Mesaj: <a href="#"> @Model.Tbl_User.Name</a>
+                            <img height="50" width="50" src="@Model.Tbl_User.Image" />
+                            <span class="mailbox-read-time float-right">@(((DateTime) Model.MessageDate).ToString("f"))</span>
+                        </h6>
+                    </div>
+
+                    <div class="mailbox-read-message">
+                        <p>
+                            @Html.Raw(@Model.Context)
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

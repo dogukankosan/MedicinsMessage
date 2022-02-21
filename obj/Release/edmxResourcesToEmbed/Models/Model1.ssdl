@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="EczaneMessageModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Tbl_Message">
+    <Key>
+      <PropertyRef Name="MessageID" />
+    </Key>
+    <Property Name="MessageID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Sender" Type="tinyint" Nullable="false" />
+    <Property Name="Receiver" Type="tinyint" Nullable="false" />
+    <Property Name="Context" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="MessageDate" Type="smalldatetime" Nullable="false" />
+    <Property Name="Status" Type="bit" Nullable="false" />
+    <Property Name="ReadStatus" Type="bit" Nullable="false" />
+    <Property Name="Unnecessary" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Tbl_User">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserName" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="Password" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Image" Type="varchar" MaxLength="250" />
+    <Property Name="Status" Type="bit" Nullable="false" />
+    <Property Name="Role" Type="bit" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Tbl_Message_Tbl_User">
+    <End Role="Tbl_User" Type="Self.Tbl_User" Multiplicity="1" />
+    <End Role="Tbl_Message" Type="Self.Tbl_Message" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tbl_User">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Tbl_Message">
+        <PropertyRef Name="Sender" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tbl_Message_Tbl_User1">
+    <End Role="Tbl_User" Type="Self.Tbl_User" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Tbl_Message" Type="Self.Tbl_Message" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tbl_User">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Tbl_Message">
+        <PropertyRef Name="Receiver" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="EczaneMessageModelStoreContainer">
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_Message" EntityType="Self.Tbl_Message" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_User" EntityType="Self.Tbl_User" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Tbl_Message_Tbl_User" Association="Self.FK_Tbl_Message_Tbl_User">
+      <End Role="Tbl_User" EntitySet="Tbl_User" />
+      <End Role="Tbl_Message" EntitySet="Tbl_Message" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tbl_Message_Tbl_User1" Association="Self.FK_Tbl_Message_Tbl_User1">
+      <End Role="Tbl_User" EntitySet="Tbl_User" />
+      <End Role="Tbl_Message" EntitySet="Tbl_Message" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,18 @@
+﻿@model EczaneMesaj.Models.Tbl_User
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="col-md-6">
+    <div class="card card-primary card-outline">
+        <div class="card-body box-profile">
+            <div class="text-center">
+                <img class="profile-user-img img-fluid img-circle"
+                     src="@Model.Image"
+                     alt="User profile picture">
+            </div>
+            <h3 class="profile-username text-center">@Model.Name</h3>
+            <a href="~/Users/Update/@Model.ID" class="btn btn-primary btn-block"><b>Profilimi Güncelle</b></a>
+        </div>
+    </div>
+</div>

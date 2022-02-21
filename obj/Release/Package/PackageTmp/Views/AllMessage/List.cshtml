@@ -1,0 +1,52 @@
+﻿@model List<EczaneMesaj.Models.Tbl_Message>
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2 class="m-0 text-dark">MESAJLAR LİSTESİ</h2>
+<hr />
+<table id="tbl1" class="table table-hover">
+    <thead>
+        <tr>
+            <th>MESAJ ALICI</th>
+            <th>MESAJ GÖNDEREN</th>
+            <th>TARİH</th>
+            <th>SİLİNME DURUM</th>
+            <th>OKUNMA BİLGİSİ</th>
+            <th>GEREKSİZ KUTUSU</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="mailbox-name"><a href="~/AllMessage/GetByList/@item.MessageID">@item.Tbl_User1.Name</a></td>
+                <td class="mailbox-name"><a href="~/AllMessage/GetByList/@item.MessageID">@item.Tbl_User.Name</a></td>
+                <td class="mailbox-date">@(((DateTime) item.MessageDate).ToString("f"))</td>
+                @{
+                    string read = item.Status != false ? "SİLİNMEMİŞ" : "SİLİNMİŞ";
+                    string suc = read == "SİLİNMEMİŞ" ? "badge bg-success float-right" : "badge bg-danger float-right";
+
+                    string read1 = item.ReadStatus != true ? "OKUNMADI" : "OKUNDU";
+                    string suc1 = read1 == "OKUNDU" ? "badge bg-success float-right" : "badge bg-danger float-right";
+
+                    string read2 = item.Unnecessary != false ? "GEREKSİZE ATILMIŞ" : "GEREKSİZ ATILMAMIŞ";
+                    string suc2 = read2 == "GEREKSİZE ATILMIŞ" ? "badge bg-danger float-right" : "badge bg-success float-right";
+                }
+                <td><span class="@suc">@read</span></td>
+                <td><span class="@suc1">@read1</span></td>
+                <td><span class="@suc2">@read2</span></td>
+            </tr>
+        }
+    </tbody>
+</table>
+<br />
+<script>
+    $('#tbl1').DataTable(
+        {
+            "language": {
+                "url": "https://cdn.datatables.net/plug-ins/1.10.20/i18n/Turkish.json"
+            }
+        }
+    );
+</script>

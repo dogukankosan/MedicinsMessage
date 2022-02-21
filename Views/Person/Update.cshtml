@@ -1,0 +1,46 @@
+﻿@model EczaneMesaj.Models.Tbl_User
+@{
+    ViewBag.Title = "Update";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2 class="mt-0 text-dark">KULLANICI GÜNCELLEME SAYFASI</h2>
+<hr />
+@using (Html.BeginForm("Update", "Person", FormMethod.Post))
+{
+    @Html.HiddenFor(x => x.ID)
+    @Html.HiddenFor(x => x.Status)
+    <br />
+    <label>KULLANICI ADI USERNAME</label>
+    @Html.TextBoxFor(x => x.UserName, new { placeholder = "Kullanıcı Adı Yazınız..", required = "", maxlength = 20, @class = "form-control" })
+    @Html.ValidationMessageFor(x => x.UserName, "", new { @class = "text-danger" })
+    <br />
+    <br />
+    <label>ŞİFRE YAZINIZ</label>
+    @Html.TextBoxFor(x => x.Password, new { placeholder = "Şifrenizi Yazınız..", required = "" ,maxlength = 20, @type = "password", @class = "form-control" })
+    @Html.ValidationMessageFor(x => x.Password, "", new { @class = "text-danger" })
+    <br />
+    <br />
+    <label>RESİM (LİNK) YAZIN</label>
+    @Html.TextBoxFor(x => x.Image, new { placeholder = "Resim Linki Yazınız..", maxlength = 250, @class = "form-control" })
+    <br />
+    <br />
+    <label>İSMİNİZ SOYİSMİNİZ YAZINIZ</label>
+    @Html.TextBoxFor(x => x.Name, new { placeholder = "İsim Soyisim Yazınız..",required="", maxlength = 50, @class = "form-control" })
+    @Html.ValidationMessageFor(x => x.Name, "", new { @class = "text-danger" })
+    <br />
+    if (Model.Role == true)
+    {
+        <input type="checkbox" checked="checked" name="Role" value="true">
+    }
+    else
+    {
+        <input type="checkbox" name="Role" value="true">
+
+    }
+    <label for="Role"> ADMİN YETKİSİ VER</label>
+    <br>
+    <br />
+    <button class="btn btn-outline-success">KULLANICI GÜNCELLE</button>
+    <br />
+}
+<br />

@@ -1,0 +1,53 @@
+﻿@model List<EczaneMesaj.Models.Tbl_Message>
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section class="content">
+    <div class="row">
+        @Html.Action("SideBard", "Message")
+        <div class="col-md-9">
+            <div class="card card-primary card-outline">
+                <div class="card-header">
+                    <h3 class="card-title">Gelen Kutusu</h3>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive mailbox-messages">
+                        <table id="tbl1" class="table table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Mesajı Yollayan Kişi</th>
+                                    <th>Tarih</th>
+                                    <th>Durum</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td class="mailbox-name"><a href="~/Message/GetByList/@item.MessageID">@item.Tbl_User.Name   <img width="50" height="50" src="@item.Tbl_User.Image" /></a></td>
+                                        <td class="mailbox-date">@(((DateTime) item.MessageDate).ToString("f"))</td>
+                                        @{
+                                            string read = item.ReadStatus != false ? "OKUDUNUZ" : "OKUMADINIZ";
+                                            string suc = read == "OKUDUNUZ" ? "badge bg-success float-right" : "badge bg-danger float-right";
+                                        }
+                                        <td><span class="@suc">@read</span></td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    $('#tbl1').DataTable(
+        {
+            "language": {
+                "url": "https://cdn.datatables.net/plug-ins/1.10.20/i18n/Turkish.json"
+            }
+        }
+    );
+</script>
